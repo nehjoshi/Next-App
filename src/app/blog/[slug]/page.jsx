@@ -1,6 +1,8 @@
 import { getPost } from '@/../lib/data';
 import styles from './singlePostPage.module.css';
 import Image from 'next/image';
+import { Suspense } from 'react';
+import PostUser from '@/components/postUser/postUser';
 
 const SinglePostPage = async ({ params }) => {
 
@@ -15,8 +17,11 @@ const SinglePostPage = async ({ params }) => {
       <div className={styles.textContainer}>
         {post && <h1 className={styles.title}>{post.title}</h1>}
         <div className={styles.details}>
-          <Image src="/contact.png" width={50} height={50} alt="" className={styles.avatar} />
-
+          {post && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <PostUser userId={post.userId} />
+            </Suspense>
+          )}
           <div className={styles.detailsText}>
             <span className={styles.detailTitle}>Author</span>
             <span className={styles.detailValue}>Date</span>

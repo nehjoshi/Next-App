@@ -1,14 +1,19 @@
+import { getPost } from '@/../lib/data';
 import styles from './singlePostPage.module.css';
 import Image from 'next/image';
 
-const SinglePostPage = () => {
+const SinglePostPage = async ({ params }) => {
+
+  const { slug } = params;
+  const post = await getPost(slug);
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src="/contact.png" fill className={styles.img} alt="" />
+        {post && <Image src={post.img} fill className={styles.img} alt="" />}
       </div>
       <div className={styles.textContainer}>
-        <h1 className={styles.title}>Title</h1>
+        {post && <h1 className={styles.title}>{post.title}</h1>}
         <div className={styles.details}>
           <Image src="/contact.png" width={50} height={50} alt="" className={styles.avatar} />
 

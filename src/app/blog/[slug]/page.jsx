@@ -4,6 +4,15 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 import PostUser from '@/components/postUser/postUser';
 
+export const generateMetadata = async ({params}) => {
+  const {slug} = params;
+  const post = await getPost(slug);
+  return {
+    title: post.title,
+    description: post.desc
+  }
+}
+
 const SinglePostPage = async ({ params }) => {
 
   const { slug } = params;
